@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Multilingua</string>
+    <string name="welcome">Bienvenue sur Multilingua</string>
+    <string name="registration">S\'enregistrer</string>
+    <string name="connexion">Se connecter</string>
+    <string name="hint_lastname">Nom</string>
+    <string name="hint_firstname">Prénom</string>
+    <string name="hint_password">Mot de passe</string>
+    <string name="hint_email">E-mail</string>
+    <string name="err_msg_lastname">Entrer votre nom</string>
+    <string name="err_msg_firstname">Entrer votre prénom</string>
+    <string name="err_msg_password">Entrer votre mot de passe</string>
+    <string name="err_msg_email">Entrer votre E-mail</string>
+    <string name="registration_title">Se créer un compte</string>
+    <string name="btn_validate">Valider</string>
+    <string name="connexion_title">Connectez-vous</string>
+    <string name="success_registration"> </string>
+</resources>
