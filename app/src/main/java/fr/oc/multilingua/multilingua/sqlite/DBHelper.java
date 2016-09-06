@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "oc.multilingua.db";
 
     public DBHelper(Context context) {
@@ -21,11 +21,13 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(User.SQL_CREATE_USER);
+        db.execSQL(Course.SQL_CREATE_COURSE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL(User.SQL_DELETE_USER);
+        db.execSQL(Course.SQL_DELETE_COURSE);
         onCreate(db);
     }
 
@@ -119,7 +121,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return users;
     }
 
-    public void insertCourse(String title, String description, String category, String course) {
+    public void insertCourse(String title, String description, String category, String course, int complete) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -127,7 +129,44 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(Course.CourseEntries.COLUMN_NAME_DESCRIPTION, description);
         values.put(Course.CourseEntries.COLUMN_NAME_CATEGORY, category);
         values.put(Course.CourseEntries.COLUMN_NAME_COURSE, course);
+        values.put(Course.CourseEntries.COLUMN_NAME_COMPLETE, complete);
 
         int newRowId = (int) db.insert(Course.CourseEntries.TABLE_NAME, null, values);
+    }
+
+    public List<Course> selectAllCourses() {
+        List<Course> courses = new ArrayList<Course>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                Course.CourseEntries._ID,
+                Course.CourseEntries.COLUMN_NAME_TITLE,
+                Course.CourseEntries.COLUMN_NAME_DESCRIPTION,
+                Course.CourseEntries.COLUMN_NAME_CATEGORY,
+                Course.CourseEntries.COLUMN_NAME_COURSE,
+                Course.CourseEntries.COLUMN_NAME_COMPLETE
+        };
+
+        Cursor cursor = db.query(
+                Course.CourseEntries.TABLE_NAME,
+                projection,
+                null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Course course = new Course(
+                    Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getInt(5)
+            );
+            courses.add(course);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return courses;
     }
 }

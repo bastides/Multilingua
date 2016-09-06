@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import fr.oc.multilingua.multilingua.preferences.UserPreferencesManager;
+import fr.oc.multilingua.multilingua.sqlite.Course;
+import fr.oc.multilingua.multilingua.sqlite.DBHelper;
+import fr.oc.multilingua.multilingua.sqlite.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,17 +45,6 @@ public class MainActivity extends AppCompatActivity {
         successMassage = getIntent().getStringExtra("successMessage");
         message.setText(successMassage);
 
-        /*DBHelper db = new DBHelper(this);
-        for (User u : db.selectAllUsers()) {
-            Log.v("List users", String.valueOf(u.get_id()));
-            Log.v("List users", String.valueOf(u.get_lastName()));
-            Log.v("List users", String.valueOf(u.get_firstName()));
-            Log.v("List users", String.valueOf(u.get_password()));
-            Log.v("List users", String.valueOf(u.get_email()));
-        }*/
-
-        Log.v("Préférence utilisateur", String.valueOf(UserPreferencesManager.getInstance(getBaseContext()).loadId()));
-
         registrationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +63,35 @@ public class MainActivity extends AppCompatActivity {
 
         /*if (UserPreferencesManager.getInstance(getBaseContext()).loadId() != 0) {
         }*/
+
+        //Log.v("Préférence utilisateur", String.valueOf(UserPreferencesManager.getInstance(getBaseContext()).loadId()));
+
+        DBHelper db = new DBHelper(this);
+
+        /*db.insertCourse(
+                "Les adverbes",
+                "Vous allez apprendre à contruire un adverbe par rapport à son verbe.",
+                "Cours intermédiaire",
+                "Vous allez apprendre à contruire un adverbe par rapport à son verbe. Lorsqu'un adjectif se finit par un -l, on ajoute simplement -ly pour former l'adverbe : beautiful - beautifully. Lorsqu'un adjectif se finit par -y, on remplace ce y par -ly que l'on précède d'un i : crazy - crazily. Lorsqu'un adjectif se finit par -le, le dernier -e devient -y et on n'ajoute pas de terminaison en plus : terrible - terribly. Lorsqu'un adjectif finit en -ic, on forme l'adverbe en ajoutant -ally : electronic - electronically.",
+                0
+        );*/
+
+        /*for (User u : db.selectAllUsers()) {
+            Log.v("List users", String.valueOf(u.get_id()));
+            Log.v("List users", String.valueOf(u.get_lastName()));
+            Log.v("List users", String.valueOf(u.get_firstName()));
+            Log.v("List users", String.valueOf(u.get_password()));
+            Log.v("List users", String.valueOf(u.get_email()));
+        }*/
+
+        for (Course c : db.selectAllCourses()) {
+            Log.v("Liste des cour", String.valueOf(c.get_id()));
+            Log.v("Liste des cour", String.valueOf(c.get_title()));
+            Log.v("Liste des cour", String.valueOf(c.get_description()));
+            Log.v("Liste des cour", String.valueOf(c.get_category()));
+            Log.v("Liste des cour", String.valueOf(c.get_course()));
+            Log.v("Liste des cour", String.valueOf(c.get_complete()));
+        }
     }
 
     @Override

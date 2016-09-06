@@ -28,9 +28,11 @@ public class Course {
         public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String COLUMN_NAME_CATEGORY = "category";
         public static final String COLUMN_NAME_COURSE = "course";
+        public static final String COLUMN_NAME_COMPLETE = "complete";
     }
 
     private static final String TEXT_TYPE = " TEXT";
+    private static final String INT_TYPE = " INTEGER";
     private static final String COMMA_SEP = ",";
 
     public static final String SQL_CREATE_COURSE =
@@ -39,7 +41,8 @@ public class Course {
                     + CourseEntries.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP
                     + CourseEntries.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP
                     + CourseEntries.COLUMN_NAME_CATEGORY + TEXT_TYPE + COMMA_SEP
-                    + CourseEntries.COLUMN_NAME_COURSE + TEXT_TYPE + ")";
+                    + CourseEntries.COLUMN_NAME_COURSE + TEXT_TYPE + COMMA_SEP
+                    + CourseEntries.COLUMN_NAME_COMPLETE + INT_TYPE + ")";
 
     public static final String SQL_DELETE_COURSE =
             "DROP TABLE IF EXISTS " + CourseEntries.TABLE_NAME;
