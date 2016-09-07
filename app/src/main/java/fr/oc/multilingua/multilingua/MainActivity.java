@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Log.v("Préférence utilisateur", String.valueOf(UserPreferencesManager.getInstance(getBaseContext()).loadId()));
 
-        DBHelper db = new DBHelper(this);
+        //DBHelper db = new DBHelper(this);
 
         /*db.insertCourse(
                 "Les adverbes",
@@ -84,14 +84,14 @@ public class MainActivity extends AppCompatActivity {
             Log.v("List users", String.valueOf(u.get_email()));
         }*/
 
-        for (Course c : db.selectAllCourses()) {
+        /*for (Course c : db.selectAllCourses()) {
             Log.v("Liste des cour", String.valueOf(c.get_id()));
             Log.v("Liste des cour", String.valueOf(c.get_title()));
             Log.v("Liste des cour", String.valueOf(c.get_description()));
             Log.v("Liste des cour", String.valueOf(c.get_category()));
             Log.v("Liste des cour", String.valueOf(c.get_course()));
             Log.v("Liste des cour", String.valueOf(c.get_complete()));
-        }
+        }*/
     }
 
     @Override
