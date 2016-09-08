@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -64,16 +65,24 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (submitForm()) {
-                    db.insertUser(
-                            inputLastname.getText().toString(),
-                            inputFirstname.getText().toString(),
-                            inputPassword.getText().toString(),
-                            inputEmail.getText().toString()
-                    );
+                    if (db.selectUser(inputEmail.getText().toString()) == null) {
+                        db.insertUser(
+                                inputLastname.getText().toString(),
+                                inputFirstname.getText().toString(),
+                                inputPassword.getText().toString(),
+                                inputEmail.getText().toString()
+                        );
 
-                    Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
-                    intent.putExtra("successMessage", "Inscription réussie");
-                    startActivity(intent);
+                        Intent intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                        intent.putExtra("registrationComplete", true);
+                        startActivity(intent);
+                    } else {
+                        AlertDialog.Builder error = new AlertDialog.Builder(RegistrationActivity.this);
+                        error.setTitle("Erreur");
+                        error.setMessage("Cette adresse E-mail est déjà utilisée.");
+                        error.setPositiveButton(android.R.string.ok, null);
+                        error.show();
+                    }
                 }
             }
         });

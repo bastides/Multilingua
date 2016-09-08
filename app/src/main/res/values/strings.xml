@@ -14,5 +14,17 @@
     <string name="registration_title">Se créer un compte</string>
     <string name="btn_validate">Valider</string>
     <string name="connexion_title">Connectez-vous</string>
-    <string name="success_registration"> </string>
+    <string name="title_activity_courses">Cours</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="android_studio">Votre nom</string>
+    <string name="android_studio_android_com">Votre E-mail</string>
+    <string name="mail">Envoyer un E-mail</string>
+    <string name="disconnection">Déconnexion</string>
+    <string name="other">Autre</string>
+    <string name="courses">Cours</string>
+    <string name="quiz">Quiz</string>
 </resources>

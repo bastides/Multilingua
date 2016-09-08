@@ -17,7 +17,10 @@
         </activity>
         <activity android:name=".ConnexionActivity" />
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".CoursesActivity" />
+        <activity
+            android:name=".CoursesActivity"
+            android:label="@string/title_activity_courses"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

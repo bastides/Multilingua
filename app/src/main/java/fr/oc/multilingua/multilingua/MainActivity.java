@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +20,7 @@ import fr.oc.multilingua.multilingua.sqlite.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected String successMassage;
+    protected boolean registrationComplete;
     private final IntentFilter intentFilter = new IntentFilter("close");
 
     private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -40,10 +41,15 @@ public class MainActivity extends AppCompatActivity {
 
         Button registrationButton = (Button) findViewById(R.id.btn_registration);
         Button connexionButton = (Button) findViewById(R.id.btn_connexion);
-        TextView message = (TextView) findViewById(R.id.success_registration);
 
-        successMassage = getIntent().getStringExtra("successMessage");
-        message.setText(successMassage);
+        registrationComplete = getIntent().getBooleanExtra("registrationComplete", false);
+        if (registrationComplete) {
+            AlertDialog.Builder error = new AlertDialog.Builder(this);
+            error.setTitle("Bravo !");
+            error.setMessage("Inscription réussie.");
+            error.setPositiveButton(android.R.string.ok, null);
+            error.show();
+        }
 
         registrationButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -74,14 +74,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if (cursor != null) {
             cursor.moveToFirst();
-            User user = new User(
-                    Integer.parseInt(cursor.getString(0)),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4)
-            );
-            return user;
+            if (cursor.isAfterLast()){
+                return null;
+            } else {
+                User user = new User(
+                        Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4)
+                );
+                return user;
+            }
         } else {
             return null;
         }

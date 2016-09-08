@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -69,11 +70,19 @@ public class ConnexionActivity extends AppCompatActivity {
                         if (dbPassword.equals(password)) {
                             // SAVING USER PREFERENCES
                             int id = user.get_id();
-                            UserPreferencesManager.getInstance(getBaseContext()).saveId(id);
+                            String email = user.get_email();
+                            UserPreferencesManager.getInstance(ConnexionActivity.this).saveId(id);
+                            UserPreferencesManager.getInstance(ConnexionActivity.this).saveEmail(email);
                             // START NEW ACTIVITY
                             Intent intent = new Intent(ConnexionActivity.this, CoursesActivity.class);
                             startActivity(intent);
                         }
+                    } else {
+                        AlertDialog.Builder error = new AlertDialog.Builder(ConnexionActivity.this);
+                        error.setTitle("Erreur");
+                        error.setMessage("Adresse E-mail ou mot de passe incorrect.");
+                        error.setPositiveButton(android.R.string.ok, null);
+                        error.show();
                     }
                 }
             }

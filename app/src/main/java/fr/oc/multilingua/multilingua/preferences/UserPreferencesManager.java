@@ -9,6 +9,7 @@ public class UserPreferencesManager {
     private SharedPreferences mPreferences;
 
     private static final int KEY_ID = 0;
+    private static final String KEY_EMAIL = "";
 
     private static final String PREFERENCES_ID = "fr.oc.multilingua.userpreferences";
 
@@ -30,4 +31,8 @@ public class UserPreferencesManager {
     public int loadId() {
         return mPreferences.getInt(String.valueOf(KEY_ID), 0);
     }
+
+    public void saveEmail(String email) { mPreferences.edit().putString(String.valueOf(KEY_EMAIL), email).apply(); }
+
+    public String loadEmail() { return mPreferences.getString(String.valueOf(KEY_EMAIL), ""); }
 }
