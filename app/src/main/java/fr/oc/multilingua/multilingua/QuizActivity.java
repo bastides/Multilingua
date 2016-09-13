@@ -98,6 +98,7 @@ public class QuizActivity extends AppCompatActivity
 
         if (id == R.id.nav_courses) {
             Intent intent = new Intent(QuizActivity.this, CoursesActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (id == R.id.nav_quiz) {
 

@@ -34,7 +34,7 @@ public class CoursesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
-        //LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("close"));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("close"));
 
         DBHelper db = new DBHelper(this);
         List<Course> coursesList = db.selectAllCourses();
@@ -107,6 +107,7 @@ public class CoursesActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_quiz) {
             Intent intent = new Intent(CoursesActivity.this, QuizActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (id == R.id.nav_mail) {
 
