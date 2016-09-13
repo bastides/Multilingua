@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "oc.multilingua.db";
 
     public DBHelper(Context context) {
@@ -22,12 +22,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(User.SQL_CREATE_USER);
         db.execSQL(Course.SQL_CREATE_COURSE);
+        db.execSQL(Quiz.SQL_CREATE_QUIZ);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL(User.SQL_DELETE_USER);
         db.execSQL(Course.SQL_DELETE_COURSE);
+        db.execSQL(Quiz.SQL_DELETE_QUIZ);
         onCreate(db);
     }
 
@@ -172,5 +174,48 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return courses;
+    }
+
+    public void insertQuiz(String question, int answer, int courseId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Quiz.QuizEntries.COLUMN_NAME_QUESTION, question);
+        values.put(Quiz.QuizEntries.COLUMN_NAME_ANSWER, answer);
+        values.put(Quiz.QuizEntries.COLUMN_NAME_COURSE_ID, courseId);
+
+        int newRowId = (int) db.insert(Quiz.QuizEntries.TABLE_NAME, null, values);
+    }
+
+    public List<Quiz> selectAllQuiz() {
+        List<Quiz> quizs = new ArrayList<Quiz>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                Quiz.QuizEntries._ID,
+                Quiz.QuizEntries.COLUMN_NAME_QUESTION,
+                Quiz.QuizEntries.COLUMN_NAME_ANSWER,
+                Quiz.QuizEntries.COLUMN_NAME_COURSE_ID
+        };
+
+        Cursor cursor = db.query(
+                Quiz.QuizEntries.TABLE_NAME,
+                projection,
+                null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Quiz quiz = new Quiz(
+                    Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1),
+                    cursor.getInt(2),
+                    cursor.getInt(3)
+            );
+            quizs.add(quiz);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return quizs;
     }
 }
