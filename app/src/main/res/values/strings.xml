@@ -20,11 +20,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="android_studio">Votre nom</string>
-    <string name="android_studio_android_com">Votre E-mail</string>
+    <string name="header_firstname">Votre nom</string>
+    <string name="header_email">Votre E-mail</string>
     <string name="mail">Envoyer un E-mail</string>
     <string name="disconnection">Déconnexion</string>
     <string name="other">Autre</string>
     <string name="courses">Cours</string>
     <string name="quiz">Quiz</string>
+    <string name="title_activity_quiz">QuizActivity</string>
 </resources>

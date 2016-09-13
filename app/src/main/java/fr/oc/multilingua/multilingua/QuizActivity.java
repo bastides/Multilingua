@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,25 +22,20 @@ import java.util.List;
 import fr.oc.multilingua.multilingua.preferences.UserPreferencesManager;
 import fr.oc.multilingua.multilingua.sqlite.Course;
 import fr.oc.multilingua.multilingua.sqlite.DBHelper;
+import fr.oc.multilingua.multilingua.sqlite.Quiz;
 import fr.oc.multilingua.multilingua.sqlite.User;
 
-public class CoursesActivity extends AppCompatActivity
+public class QuizActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_courses);
+        setContentView(R.layout.activity_quiz);
 
         //LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("close"));
 
         DBHelper db = new DBHelper(this);
-        List<Course> coursesList = db.selectAllCourses();
-        db.close();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_courses);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        CourseAdapter adapter = new CourseAdapter(coursesList);
-        recyclerView.setAdapter(adapter);
 
         User user = db.selectUser(UserPreferencesManager.getInstance(this).loadEmail());
 
@@ -78,7 +71,7 @@ public class CoursesActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.courses, menu);
+        getMenuInflater().inflate(R.menu.quiz, menu);
         return true;
     }
 
@@ -104,10 +97,10 @@ public class CoursesActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_courses) {
-
-        } else if (id == R.id.nav_quiz) {
-            Intent intent = new Intent(CoursesActivity.this, QuizActivity.class);
+            Intent intent = new Intent(QuizActivity.this, CoursesActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_quiz) {
+
         } else if (id == R.id.nav_mail) {
 
         } else if (id == R.id.nav_disconnection) {
