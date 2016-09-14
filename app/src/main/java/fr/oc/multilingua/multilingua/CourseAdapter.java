@@ -1,5 +1,6 @@
 package fr.oc.multilingua.multilingua;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,17 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             super(itemView);
             _title = ((TextView) itemView.findViewById(R.id.course_title));
             _description = ((TextView) itemView.findViewById(R.id.course_description));
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), CourseActivity.class);
+                    intent.putExtra(CourseActivity.COURSE_TITLE, _currentCourse.get_title());
+                    intent.putExtra(CourseActivity.COURSE_DESCRIPTION, _currentCourse.get_description());
+                    intent.putExtra(CourseActivity.COURSE_COURSE, _currentCourse.get_course());
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
 
         public void setCourse(Course course) {

@@ -28,4 +28,5 @@
     <string name="courses">Cours</string>
     <string name="quiz">Quiz</string>
     <string name="title_activity_quiz">QuizActivity</string>
+    <string name="btn_finish">Terminer</string>
 </resources>

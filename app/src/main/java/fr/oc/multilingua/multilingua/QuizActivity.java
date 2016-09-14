@@ -1,11 +1,15 @@
 package fr.oc.multilingua.multilingua;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,9 +37,29 @@ public class QuizActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        //LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("close"));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("close"));
 
         DBHelper db = new DBHelper(this);
+        List<Course> coursesList = db.selectCompleteCourses();
+        db.close();
+        if (coursesList != null) {
+            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_quiz);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            QuizAdapter adapter = new QuizAdapter(coursesList);
+            recyclerView.setAdapter(adapter);
+        } else {
+            AlertDialog.Builder error = new AlertDialog.Builder(QuizActivity.this);
+            error.setTitle("Attention");
+            error.setMessage("Vous devez avoir fait au moins un cours pour faire les quiz.");
+            error.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(QuizActivity.this, CoursesActivity.class);
+                    startActivity(intent);
+                }
+            });
+            error.show();
+        }
 
         User user = db.selectUser(UserPreferencesManager.getInstance(this).loadEmail());
 

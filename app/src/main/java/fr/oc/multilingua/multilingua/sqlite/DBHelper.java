@@ -176,6 +176,119 @@ public class DBHelper extends SQLiteOpenHelper {
         return courses;
     }
 
+    public Course selectCourse(String title) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                Course.CourseEntries._ID,
+                Course.CourseEntries.COLUMN_NAME_TITLE,
+                Course.CourseEntries.COLUMN_NAME_DESCRIPTION,
+                Course.CourseEntries.COLUMN_NAME_CATEGORY,
+                Course.CourseEntries.COLUMN_NAME_COURSE,
+                Course.CourseEntries.COLUMN_NAME_COMPLETE
+        };
+
+        String selection = Course.CourseEntries.COLUMN_NAME_TITLE + " = ?";
+        String[] selectionArgs = { title };
+
+        Cursor cursor = db.query(
+                Course.CourseEntries.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            if (cursor.isAfterLast()){
+                return null;
+            } else {
+                Course course = new Course(
+                        Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getInt(5)
+                );
+                return course;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public List<Course> selectCompleteCourses() {
+        List<Course> courses = new ArrayList<Course>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                Course.CourseEntries._ID,
+                Course.CourseEntries.COLUMN_NAME_TITLE,
+                Course.CourseEntries.COLUMN_NAME_DESCRIPTION,
+                Course.CourseEntries.COLUMN_NAME_CATEGORY,
+                Course.CourseEntries.COLUMN_NAME_COURSE,
+                Course.CourseEntries.COLUMN_NAME_COMPLETE
+        };
+
+        Cursor cursor = db.query(
+                Course.CourseEntries.TABLE_NAME,
+                projection,
+                "complete=?",
+                new String[]{Integer.toString(1)},
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            if (cursor.isAfterLast()){
+                return null;
+            } else {
+                while (!cursor.isAfterLast()) {
+                    Course course = new Course(
+                            Integer.parseInt(cursor.getString(0)),
+                            cursor.getString(1),
+                            cursor.getString(2),
+                            cursor.getString(3),
+                            cursor.getString(4),
+                            cursor.getInt(5)
+                    );
+                    courses.add(course);
+                    cursor.moveToNext();
+                }
+                cursor.close();
+                return courses;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public void updateCourseComplete(int isComplete) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Course.CourseEntries.COLUMN_NAME_COMPLETE, "complete");
+
+        // Which row to update, based on the title
+        String selection = Course.CourseEntries.COLUMN_NAME_COMPLETE + " LIKE ?";
+        String[] selectionArgs = {String.valueOf(isComplete)};
+
+        int count = db.update(
+                Course.CourseEntries.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs
+        );
+    }
+
+
     public void insertQuiz(String question, int answer, int courseId) {
         SQLiteDatabase db = this.getWritableDatabase();
 

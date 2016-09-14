@@ -63,6 +63,9 @@ public class CoursesActivity extends AppCompatActivity
         heaerFirstname.setText(user.get_firstName());
         TextView headerEmail = (TextView) headerView.findViewById(R.id.header_email);
         headerEmail.setText(user.get_email());
+
+
+        Log.v("COMPLETE", String.valueOf(db.selectCourse("Hello !").get_complete()));
     }
 
     @Override
