@@ -270,24 +270,15 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void updateCourseComplete(int isComplete) {
+    public void updateCourseComplete(String title, int isComplete) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Course.CourseEntries.COLUMN_NAME_COMPLETE, "complete");
+        values.put("complete", isComplete);
+        String[] selectionArgs = { title };
 
-        // Which row to update, based on the title
-        String selection = Course.CourseEntries.COLUMN_NAME_COMPLETE + " LIKE ?";
-        String[] selectionArgs = {String.valueOf(isComplete)};
-
-        int count = db.update(
-                Course.CourseEntries.TABLE_NAME,
-                values,
-                selection,
-                selectionArgs
-        );
+        db.update(Course.CourseEntries.TABLE_NAME, values, "title = ? ", selectionArgs);
     }
-
 
     public void insertQuiz(String question, int answer, int courseId) {
         SQLiteDatabase db = this.getWritableDatabase();

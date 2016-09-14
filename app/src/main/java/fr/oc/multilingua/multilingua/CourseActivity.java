@@ -41,8 +41,7 @@ public class CourseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DBHelper db = new DBHelper(CourseActivity.this);
-                Course currentCourse =  db.selectCourse(title);
-                currentCourse.set_complete(1);
+                db.updateCourseComplete(title, 1);
 
                 Intent intent = new Intent(CourseActivity.this, CoursesActivity.class);
                 startActivity(intent);
