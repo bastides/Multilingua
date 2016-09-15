@@ -27,6 +27,10 @@
     <string name="other">Autre</string>
     <string name="courses">Cours</string>
     <string name="quiz">Quiz</string>
-    <string name="title_activity_quiz">QuizActivity</string>
+    <string name="title_activity_quiz">Quiz</string>
     <string name="btn_finish">Terminer</string>
+    <string name="vrai">Vrai</string>
+    <string name="faux">Faux</string>
+    <string name="question"> </string>
+    <string name="speaker">speaker</string>
 </resources>

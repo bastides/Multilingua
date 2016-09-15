@@ -322,4 +322,49 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return quizs;
     }
+
+    public List<Quiz> selectQuizByCourseId(int courseId) {
+        List<Quiz> quizList = new ArrayList<Quiz>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                Quiz.QuizEntries._ID,
+                Quiz.QuizEntries.COLUMN_NAME_QUESTION,
+                Quiz.QuizEntries.COLUMN_NAME_ANSWER,
+                Quiz.QuizEntries.COLUMN_NAME_COURSE_ID
+        };
+
+        Cursor cursor = db.query(
+                Quiz.QuizEntries.TABLE_NAME,
+                projection,
+                "course=?",
+                new String[]{Integer.toString(courseId)},
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            if (cursor.isAfterLast()){
+                return null;
+            } else {
+                while (!cursor.isAfterLast()) {
+                    Quiz quiz = new Quiz(
+                            Integer.parseInt(cursor.getString(0)),
+                            cursor.getString(1),
+                            cursor.getInt(2),
+                            cursor.getInt(3)
+                    );
+                    quizList.add(quiz);
+                    cursor.moveToNext();
+                }
+                cursor.close();
+                return quizList;
+            }
+        } else {
+            return null;
+        }
+    }
 }

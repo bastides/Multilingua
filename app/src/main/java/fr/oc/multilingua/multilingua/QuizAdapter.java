@@ -1,5 +1,6 @@
 package fr.oc.multilingua.multilingua;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,15 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         public QuizViewHolder(View itemView) {
             super(itemView);
             _title = ((TextView) itemView.findViewById(R.id.course_title));
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), QuizExerciseActivity.class);
+                    intent.putExtra(CourseActivity.COURSE_TITLE, _currentCourse.get_title());
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
 
         public void setCourse(Course course) {
