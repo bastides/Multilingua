@@ -68,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*if (UserPreferencesManager.getInstance(getBaseContext()).loadId() != 0) {
-        }*/
+        Log.v("Préférence utilisateur", String.valueOf(UserPreferencesManager.getInstance(this).loadId()));
 
-        //Log.v("Préférence utilisateur", String.valueOf(UserPreferencesManager.getInstance(getBaseContext()).loadId()));
+        if (UserPreferencesManager.getInstance(this).loadId() != 0) {
+            Intent intent = new Intent(MainActivity.this, CoursesActivity.class);
+            startActivity(intent);
+        }
 
         DBHelper db = new DBHelper(this);
 

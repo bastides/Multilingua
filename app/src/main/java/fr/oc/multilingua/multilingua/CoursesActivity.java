@@ -115,7 +115,10 @@ public class CoursesActivity extends AppCompatActivity
         } else if (id == R.id.nav_mail) {
 
         } else if (id == R.id.nav_disconnection) {
-
+            UserPreferencesManager.getInstance(CoursesActivity.this).saveId(0);
+            UserPreferencesManager.getInstance(CoursesActivity.this).saveEmail(null);
+            Intent intent = new Intent(CoursesActivity.this, MainActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

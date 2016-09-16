@@ -77,9 +77,12 @@ public class CourseActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(CourseActivity.this, CoursesActivity.class);
                 startActivity(intent);
+                if (_tts != null) {
+                    _tts.stop();
+                    _tts.shutdown();
+                }
             }
         });
-
     }
 
     private void speak(String text){
