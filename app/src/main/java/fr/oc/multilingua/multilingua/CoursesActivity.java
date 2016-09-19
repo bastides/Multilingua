@@ -57,6 +57,7 @@ public class CoursesActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
 
         View headerView = navigationView.getHeaderView(0);
         TextView heaerFirstname = (TextView) headerView.findViewById(R.id.header_firstname);
