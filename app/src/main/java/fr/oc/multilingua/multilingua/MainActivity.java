@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Log.v("Préférence utilisateur", String.valueOf(UserPreferencesManager.getInstance(this).loadId()));
+        //Log.v("Préférence utilisateur", String.valueOf(UserPreferencesManager.getInstance(this).loadId()));
 
         if (UserPreferencesManager.getInstance(this).loadId() != 0) {
             Intent intent = new Intent(MainActivity.this, CoursesActivity.class);
