@@ -180,9 +180,9 @@ public class QuizActivity extends AppCompatActivity
         }
 
         SecureRandom random = new SecureRandom();
-        int randomQuiz = random.nextInt(idCourses.length) + 1;
+        int randomQuiz = random.nextInt(idCourses.length);
 
-        List<Quiz> _quizList = db.selectQuizByCourseId(randomQuiz);
+        List<Quiz> _quizList = db.selectQuizByCourseId(idCourses[randomQuiz]);
         if (_quizList != null) {
             _viewPager = (ViewPager) findViewById(R.id.quir_pager);
             _viewPager.setAdapter(new QuizAdapter(_quizList));
