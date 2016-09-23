@@ -3,13 +3,17 @@ package fr.oc.multilingua.multilingua;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,8 +23,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 import fr.oc.multilingua.multilingua.preferences.UserPreferencesManager;
@@ -32,6 +42,122 @@ import fr.oc.multilingua.multilingua.sqlite.User;
 public class QuizActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private ViewPager _viewPager;
+
+    public class QuizAdapter extends PagerAdapter {
+
+        private List<Quiz> _quizList;
+
+        public QuizAdapter(List<Quiz> quizList) { this._quizList = quizList; }
+
+        @Override
+        public int getCount() {
+            return _quizList.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, final int position) {
+            final View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.quiz_item_pager, container, false);
+
+            final TextView question = (TextView) rootView.findViewById(R.id.question);
+            final Button previous = (Button) rootView.findViewById(R.id.previous);
+            final Button next = (Button) rootView.findViewById(R.id.next);
+            final Button finish = (Button) rootView.findViewById(R.id.finish);
+            final RadioGroup radioChoice = (RadioGroup) rootView.findViewById(R.id.btn_radio);
+            final RadioButton radioTrue = (RadioButton) rootView.findViewById(R.id.radio_true);
+            final RadioButton radioFalse = (RadioButton) rootView.findViewById(R.id.radio_false);
+            final Button answer = (Button) rootView.findViewById(R.id.answer);
+
+            previous.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    _viewPager.setCurrentItem(position - 1, true);
+                }
+            });
+
+            next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    _viewPager.setCurrentItem(position + 1, true);
+                }
+            });
+
+            answer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int valueOfRadioChoice = radioChoice.getCheckedRadioButtonId();
+                    Quiz quiz = _quizList.get(position);
+                    if (valueOfRadioChoice != radioTrue.getId() && valueOfRadioChoice != radioFalse.getId()) {
+                        AlertDialog.Builder error = new AlertDialog.Builder(QuizActivity.this);
+                        error.setTitle("Attention");
+                        error.setMessage("Vous devez choisir Vrai ou Faux avant de voir la réponse.");
+                        error.setPositiveButton(android.R.string.ok, null);
+                        error.show();
+                    } else {
+                        if (valueOfRadioChoice == radioTrue.getId()) {
+                            if (quiz.get_answer() == 1) {
+                                alertGoodAnswer();
+                            } else {
+                                alertWrongAnswer();
+                            }
+                        } else {
+                            if (quiz.get_answer() == 0) {
+                                alertGoodAnswer();
+                            } else {
+                                alertWrongAnswer();
+                            }
+                        }
+                    }
+                }
+            });
+
+            finish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // A faire
+                }
+            });
+
+            final Quiz quiz = _quizList.get(position);
+            question.setText(quiz.get_question());
+
+            if (position == 0) {
+                previous.setVisibility(View.GONE);
+                next.setVisibility(View.VISIBLE);
+                finish.setVisibility(View.GONE);
+            } else if (position == getCount() - 1) {
+                previous.setVisibility(View.VISIBLE);
+                next.setVisibility(View.GONE);
+                next.setVisibility(View.VISIBLE);
+            } else {
+                previous.setVisibility(View.VISIBLE);
+                next.setVisibility(View.VISIBLE);
+                finish.setVisibility(View.GONE);
+            }
+
+            /*for (Quiz q : _quizList) {
+                Log.v("Liste des quiz", String.valueOf(q.get_id()));
+                Log.v("Liste des quiz", String.valueOf(q.get_question()));
+                Log.v("Liste des quiz", String.valueOf(q.get_answer()));
+                Log.v("Liste des quiz", String.valueOf(q.get_courseId()));
+            }*/
+
+            container.addView(rootView);
+
+            return rootView;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((LinearLayout) object);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +165,27 @@ public class QuizActivity extends AppCompatActivity
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("close"));
 
+        int idCourses[];
+
         DBHelper db = new DBHelper(this);
-        List<Course> coursesList = db.selectCompleteCourses();
-        db.close();
-        if (coursesList != null) {
-            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_quiz);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            QuizAdapter adapter = new QuizAdapter(coursesList);
-            recyclerView.setAdapter(adapter);
+        List<Course> completeCourses = db.selectCompleteCourses();
+
+        idCourses = new int[completeCourses.size()];
+
+        for (int i = 0; i < completeCourses.size(); i++) {
+            for (Course c : completeCourses) {
+                int id = c.get_id();
+                idCourses[i] = id;
+            }
+        }
+
+        SecureRandom random = new SecureRandom();
+        int randomQuiz = random.nextInt(idCourses.length) + 1;
+
+        List<Quiz> _quizList = db.selectQuizByCourseId(randomQuiz);
+        if (_quizList != null) {
+            _viewPager = (ViewPager) findViewById(R.id.quir_pager);
+            _viewPager.setAdapter(new QuizAdapter(_quizList));
         } else {
             AlertDialog.Builder error = new AlertDialog.Builder(QuizActivity.this);
             error.setTitle("Attention");
@@ -139,5 +278,36 @@ public class QuizActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.radio_true:
+                if (checked)
+                    // true rules
+                    break;
+            case R.id.radio_false:
+                if (checked)
+                    // false rules
+                    break;
+        }
+    }
+
+    public void alertGoodAnswer() {
+        AlertDialog.Builder error = new AlertDialog.Builder(QuizActivity.this);
+        error.setTitle("Bravo !");
+        error.setMessage("C'est la bonne réponse !");
+        error.setPositiveButton(android.R.string.ok, null);
+        error.show();
+    }
+
+    public void alertWrongAnswer() {
+        AlertDialog.Builder error = new AlertDialog.Builder(QuizActivity.this);
+        error.setTitle("Dommage");
+        error.setMessage("Mauvaise réponse !");
+        error.setPositiveButton(android.R.string.ok, null);
+        error.show();
     }
 }

@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 import fr.oc.multilingua.multilingua.preferences.UserPreferencesManager;
 import fr.oc.multilingua.multilingua.sqlite.Course;
 import fr.oc.multilingua.multilingua.sqlite.DBHelper;
@@ -201,6 +203,13 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         /*for (Quiz q : db.selectAllQuiz()) {
+            Log.v("Liste des quiz", String.valueOf(q.get_id()));
+            Log.v("Liste des quiz", String.valueOf(q.get_question()));
+            Log.v("Liste des quiz", String.valueOf(q.get_answer()));
+            Log.v("Liste des quiz", String.valueOf(q.get_courseId()));
+        }*/
+
+        /*for (Quiz q : db.selectQuizByCourseId(1)) {
             Log.v("Liste des quiz", String.valueOf(q.get_id()));
             Log.v("Liste des quiz", String.valueOf(q.get_question()));
             Log.v("Liste des quiz", String.valueOf(q.get_answer()));

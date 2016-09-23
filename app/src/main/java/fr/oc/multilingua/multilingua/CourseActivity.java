@@ -14,10 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import fr.oc.multilingua.multilingua.sqlite.Course;
 import fr.oc.multilingua.multilingua.sqlite.DBHelper;
+import fr.oc.multilingua.multilingua.sqlite.Quiz;
 
 public class CourseActivity extends AppCompatActivity {
 

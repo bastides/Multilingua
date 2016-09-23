@@ -33,4 +33,7 @@
     <string name="faux">Faux</string>
     <string name="question"> </string>
     <string name="speaker">speaker</string>
+    <string name="previous">Précedent</string>
+    <string name="next">Suivant</string>
+    <string name="answer">Réponse</string>
 </resources>
