@@ -210,10 +210,7 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         /*for (Quiz q : db.selectQuizByCourseId(1)) {
-            Log.v("Liste des quiz", String.valueOf(q.get_id()));
             Log.v("Liste des quiz", String.valueOf(q.get_question()));
-            Log.v("Liste des quiz", String.valueOf(q.get_answer()));
-            Log.v("Liste des quiz", String.valueOf(q.get_courseId()));
         }*/
     }
 

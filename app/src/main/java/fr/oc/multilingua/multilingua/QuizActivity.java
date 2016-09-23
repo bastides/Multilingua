@@ -133,7 +133,7 @@ public class QuizActivity extends AppCompatActivity
             } else if (position == getCount() - 1) {
                 previous.setVisibility(View.VISIBLE);
                 next.setVisibility(View.GONE);
-                next.setVisibility(View.VISIBLE);
+                finish.setVisibility(View.VISIBLE);
             } else {
                 previous.setVisibility(View.VISIBLE);
                 next.setVisibility(View.VISIBLE);
@@ -141,10 +141,7 @@ public class QuizActivity extends AppCompatActivity
             }
 
             /*for (Quiz q : _quizList) {
-                Log.v("Liste des quiz", String.valueOf(q.get_id()));
                 Log.v("Liste des quiz", String.valueOf(q.get_question()));
-                Log.v("Liste des quiz", String.valueOf(q.get_answer()));
-                Log.v("Liste des quiz", String.valueOf(q.get_courseId()));
             }*/
 
             container.addView(rootView);
@@ -169,22 +166,20 @@ public class QuizActivity extends AppCompatActivity
 
         DBHelper db = new DBHelper(this);
         List<Course> completeCourses = db.selectCompleteCourses();
-
         idCourses = new int[completeCourses.size()];
-
         for (int i = 0; i < completeCourses.size(); i++) {
             for (Course c : completeCourses) {
                 int id = c.get_id();
                 idCourses[i] = id;
             }
         }
-
         SecureRandom random = new SecureRandom();
         int randomQuiz = random.nextInt(idCourses.length);
-
         List<Quiz> _quizList = db.selectQuizByCourseId(idCourses[randomQuiz]);
+
         if (_quizList != null) {
             _viewPager = (ViewPager) findViewById(R.id.quir_pager);
+            _viewPager.setOffscreenPageLimit(_quizList.size());
             _viewPager.setAdapter(new QuizAdapter(_quizList));
         } else {
             AlertDialog.Builder error = new AlertDialog.Builder(QuizActivity.this);
