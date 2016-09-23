@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import fr.oc.multilingua.multilingua.preferences.UserPreferencesManager;
 import fr.oc.multilingua.multilingua.sqlite.Course;
 import fr.oc.multilingua.multilingua.sqlite.DBHelper;
 import fr.oc.multilingua.multilingua.sqlite.Quiz;
@@ -28,6 +29,8 @@ public class CourseActivity extends AppCompatActivity {
     public static final String COURSE_COURSE = "course";
 
     private TextToSpeech _tts;
+
+    private long _currentTimestamp = System.currentTimeMillis() / 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +88,8 @@ public class CourseActivity extends AppCompatActivity {
                 }
             }
         });
+
+        UserPreferencesManager.getInstance(this).saveLastCourse(_currentTimestamp);
     }
 
     private void speak(String text){

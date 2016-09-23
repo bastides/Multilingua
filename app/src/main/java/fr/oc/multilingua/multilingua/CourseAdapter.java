@@ -1,6 +1,7 @@
 package fr.oc.multilingua.multilingua;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fr.oc.multilingua.multilingua.preferences.UserPreferencesManager;
 import fr.oc.multilingua.multilingua.sqlite.Course;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
@@ -42,19 +44,33 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         private final TextView _description;
         private Course _currentCourse;
 
+        private long _preferenceLastCourse;
+        private long _currentTimestamp = System.currentTimeMillis();
+        private long _24Hago = (_currentTimestamp - 86400000) / 1000;
+
         public CourseViewHolder(View itemView) {
             super(itemView);
             _title = ((TextView) itemView.findViewById(R.id.course_title));
             _description = ((TextView) itemView.findViewById(R.id.course_description));
+            _preferenceLastCourse = UserPreferencesManager.getInstance(itemView.getContext()).loadLastCourse();
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), CourseActivity.class);
-                    intent.putExtra(CourseActivity.COURSE_TITLE, _currentCourse.get_title());
-                    intent.putExtra(CourseActivity.COURSE_DESCRIPTION, _currentCourse.get_description());
-                    intent.putExtra(CourseActivity.COURSE_COURSE, _currentCourse.get_course());
-                    view.getContext().startActivity(intent);
+                    if (_preferenceLastCourse < _24Hago) {
+                        Intent intent = new Intent(view.getContext(), CourseActivity.class);
+                        intent.putExtra(CourseActivity.COURSE_TITLE, _currentCourse.get_title());
+                        intent.putExtra(CourseActivity.COURSE_DESCRIPTION, _currentCourse.get_description());
+                        intent.putExtra(CourseActivity.COURSE_COURSE, _currentCourse.get_course());
+                        view.getContext().startActivity(intent);
+                    } else {
+                        AlertDialog.Builder error = new AlertDialog.Builder(view.getContext());
+                        error.setTitle("Attention");
+                        error.setMessage("Vous ne pouvez faire qu'un cours par jour.");
+                        error.setPositiveButton(android.R.string.ok, null);
+                        error.show();
+                    }
+
                 }
             });
         }

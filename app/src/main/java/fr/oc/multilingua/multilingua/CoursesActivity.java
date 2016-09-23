@@ -38,7 +38,6 @@ public class CoursesActivity extends AppCompatActivity
 
         DBHelper db = new DBHelper(this);
         List<Course> coursesList = db.selectAllCourses();
-        db.close();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_courses);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         CourseAdapter adapter = new CourseAdapter(coursesList);
@@ -64,9 +63,6 @@ public class CoursesActivity extends AppCompatActivity
         heaerFirstname.setText(user.get_firstName());
         TextView headerEmail = (TextView) headerView.findViewById(R.id.header_email);
         headerEmail.setText(user.get_email());
-
-
-        Log.v("COMPLETE", String.valueOf(db.selectCourse("Hello !").get_complete()));
     }
 
     @Override
