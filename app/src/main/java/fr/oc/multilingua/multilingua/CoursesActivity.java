@@ -1,6 +1,7 @@
 package fr.oc.multilingua.multilingua;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -110,7 +111,10 @@ public class CoursesActivity extends AppCompatActivity
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (id == R.id.nav_mail) {
-
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "info@multilingua.fr", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Demande d'information");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Votre message..");
+            startActivity(Intent.createChooser(emailIntent, "Send email..."));
         } else if (id == R.id.nav_disconnection) {
             UserPreferencesManager.getInstance(CoursesActivity.this).saveId(0);
             UserPreferencesManager.getInstance(CoursesActivity.this).saveEmail(null);

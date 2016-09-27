@@ -2,6 +2,7 @@ package fr.oc.multilingua.multilingua;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -285,7 +286,10 @@ public class QuizActivity extends AppCompatActivity
         } else if (id == R.id.nav_quiz) {
 
         } else if (id == R.id.nav_mail) {
-
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "info@multilingua.fr", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Demande d'information");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Votre message..");
+            startActivity(Intent.createChooser(emailIntent, "Send email..."));
         } else if (id == R.id.nav_disconnection) {
             UserPreferencesManager.getInstance(QuizActivity.this).saveId(0);
             UserPreferencesManager.getInstance(QuizActivity.this).saveEmail(null);
