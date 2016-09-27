@@ -77,9 +77,6 @@ public class CourseActivity extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DBHelper db = new DBHelper(CourseActivity.this);
-                db.updateCourseComplete(COURSE_TITLE, 1);
-
                 Intent intent = new Intent(CourseActivity.this, CoursesActivity.class);
                 startActivity(intent);
                 if (_tts != null) {
@@ -89,6 +86,8 @@ public class CourseActivity extends AppCompatActivity {
             }
         });
 
+        DBHelper db = new DBHelper(this);
+        db.updateCourseComplete(title, 1);
         UserPreferencesManager.getInstance(this).saveLastCourse(_currentTimestamp);
     }
 
