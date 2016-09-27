@@ -44,8 +44,6 @@ public class QuizActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ViewPager _viewPager;
-    private long _currentTimestamp = System.currentTimeMillis() / 1000;
-    private long _24Hago = (_currentTimestamp - 86400);
 
     public class QuizAdapter extends PagerAdapter {
 
@@ -117,7 +115,6 @@ public class QuizActivity extends AppCompatActivity
                         }
                     }
 
-                    UserPreferencesManager.getInstance(QuizActivity.this).saveLastQuiz(_currentTimestamp);
                 }
             });
 
@@ -135,7 +132,6 @@ public class QuizActivity extends AppCompatActivity
                         }
                     });
                     error.show();
-                    UserPreferencesManager.getInstance(QuizActivity.this).saveLastQuiz(_currentTimestamp);
                 }
             });
 
@@ -225,20 +221,6 @@ public class QuizActivity extends AppCompatActivity
         heaerFirstname.setText(user.get_firstName());
         TextView headerEmail = (TextView) headerView.findViewById(R.id.header_email);
         headerEmail.setText(user.get_email());
-
-        if (UserPreferencesManager.getInstance(QuizActivity.this).loadLastQuiz() > _24Hago) {
-            AlertDialog.Builder error = new AlertDialog.Builder(QuizActivity.this);
-            error.setTitle("Attention");
-            error.setMessage("Vous ne pouvez faire qu'un quiz par jour.");
-            error.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Intent intent = new Intent(QuizActivity.this, CoursesActivity.class);
-                    startActivity(intent);
-                }
-            });
-            error.show();
-        }
     }
 
     @Override

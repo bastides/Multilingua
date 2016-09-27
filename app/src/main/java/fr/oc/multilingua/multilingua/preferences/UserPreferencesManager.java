@@ -11,7 +11,6 @@ public class UserPreferencesManager {
     private static final int KEY_ID = 0;
     private static final String KEY_EMAIL = "";
     private static final long KEY_LAST_COURSE = 946681200;
-    private static final long KEY_LAST_QUIZ = 946681200;
 
     private static final String PREFERENCES_ID = "fr.oc.multilingua.userpreferences";
 
@@ -41,12 +40,4 @@ public class UserPreferencesManager {
     public void saveLastCourse(long timestamp) { mPreferences.edit().putLong(String.valueOf(KEY_LAST_COURSE), timestamp).apply(); }
 
     public long loadLastCourse() { return mPreferences.getLong(String.valueOf(KEY_LAST_COURSE), 946681200); }
-
-    public void saveLastQuiz(long timestamp) {
-        mPreferences.edit().putLong(String.valueOf(KEY_LAST_QUIZ), timestamp).apply();
-    }
-
-    public long loadLastQuiz() {
-        return mPreferences.getLong(String.valueOf(KEY_LAST_QUIZ), 946681200);
-    }
 }
