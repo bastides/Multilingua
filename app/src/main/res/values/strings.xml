@@ -36,4 +36,8 @@
     <string name="previous">Précedent</string>
     <string name="next">Suivant</string>
     <string name="answer">Réponse</string>
+    <string name="appointment">Dates de formation</string>
+    <string name="add_appointment">Ajouter une date</string>
+    <string name="select_date">Date</string>
+    <string name="select_time">Heure</string>
 </resources>

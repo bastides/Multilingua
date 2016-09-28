@@ -110,6 +110,9 @@ public class CoursesActivity extends AppCompatActivity
             Intent intent = new Intent(CoursesActivity.this, QuizActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        } else if (id == R.id.nav_appointment) {
+            Intent intent = new Intent(CoursesActivity.this, AppointmentActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_mail) {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "info@multilingua.fr", null));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Demande d'information");

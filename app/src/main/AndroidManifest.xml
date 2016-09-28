@@ -26,7 +26,8 @@
             android:label="@string/title_activity_quiz"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CourseActivity" />
-
+        <activity android:name=".AppointmentActivity" />
+        <activity android:name=".AddAppointmentActivity" />
     </application>
 
 </manifest>

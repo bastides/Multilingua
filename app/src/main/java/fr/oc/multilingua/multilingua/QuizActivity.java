@@ -267,6 +267,9 @@ public class QuizActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_quiz) {
 
+        } else if (id == R.id.nav_appointment) {
+            Intent intent = new Intent(QuizActivity.this, AppointmentActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_mail) {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "info@multilingua.fr", null));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Demande d'information");
