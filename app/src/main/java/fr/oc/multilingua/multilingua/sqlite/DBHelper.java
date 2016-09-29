@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "oc.multilingua.db";
 
     public DBHelper(Context context) {
@@ -23,6 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(User.SQL_CREATE_USER);
         db.execSQL(Course.SQL_CREATE_COURSE);
         db.execSQL(Quiz.SQL_CREATE_QUIZ);
+        db.execSQL(Appointment.SQL_CREATE_APPOINTMENT);
     }
 
     @Override
@@ -30,6 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(User.SQL_DELETE_USER);
         db.execSQL(Course.SQL_DELETE_COURSE);
         db.execSQL(Quiz.SQL_DELETE_QUIZ);
+        db.execSQL(Appointment.SQL_DELETE_APPOINTMENT);
         onCreate(db);
     }
 
@@ -366,5 +368,54 @@ public class DBHelper extends SQLiteOpenHelper {
         } else {
             return null;
         }
+    }
+
+    public void insertAppointment(String title, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Appointment.AppointmentEntries.COLUMN_NAME_TITLE, title);
+        values.put(Appointment.AppointmentEntries.COLUMN_NAME_DATE, date);
+
+        int newRowId = (int) db.insert(Appointment.AppointmentEntries.TABLE_NAME, null, values);
+    }
+
+    public List<Appointment> selectAllAppointment() {
+        List<Appointment> appointments = new ArrayList<Appointment>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                Appointment.AppointmentEntries._ID,
+                Appointment.AppointmentEntries.COLUMN_NAME_TITLE,
+                Appointment.AppointmentEntries.COLUMN_NAME_DATE
+        };
+
+        Cursor cursor = db.query(
+                Appointment.AppointmentEntries.TABLE_NAME,
+                projection,
+                null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Appointment appointment = new Appointment(
+                    Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1),
+                    cursor.getString(2)
+            );
+            appointments.add(appointment);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return appointments;
+    }
+
+    public void deleteAppointment(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selection = Appointment.AppointmentEntries._ID + " LIKE ?";
+        String[] selectionArgs = { Integer.toString(id) };
+
+        db.delete(Appointment.AppointmentEntries.TABLE_NAME, selection, selectionArgs);
     }
 }

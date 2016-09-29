@@ -3,12 +3,9 @@ package fr.oc.multilingua.multilingua;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -111,7 +108,7 @@ public class CoursesActivity extends AppCompatActivity
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (id == R.id.nav_appointment) {
-            Intent intent = new Intent(CoursesActivity.this, AppointmentActivity.class);
+            Intent intent = new Intent(CoursesActivity.this, AppointmentsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_mail) {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "info@multilingua.fr", null));

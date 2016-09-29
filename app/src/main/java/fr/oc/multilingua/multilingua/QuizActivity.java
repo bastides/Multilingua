@@ -4,16 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -268,7 +262,7 @@ public class QuizActivity extends AppCompatActivity
         } else if (id == R.id.nav_quiz) {
 
         } else if (id == R.id.nav_appointment) {
-            Intent intent = new Intent(QuizActivity.this, AppointmentActivity.class);
+            Intent intent = new Intent(QuizActivity.this, AppointmentsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_mail) {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "info@multilingua.fr", null));

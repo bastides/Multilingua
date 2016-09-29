@@ -11,6 +11,7 @@
     <string name="err_msg_firstname">Entrer votre prénom</string>
     <string name="err_msg_password">Entrer votre mot de passe</string>
     <string name="err_msg_email">Entrer votre E-mail</string>
+    <string name="err_msg_appointment_title">Vous devez entrer un nom</string>
     <string name="registration_title">Se créer un compte</string>
     <string name="btn_validate">Valider</string>
     <string name="connexion_title">Connectez-vous</string>
@@ -40,4 +41,6 @@
     <string name="add_appointment">Ajouter une date</string>
     <string name="select_date">Date</string>
     <string name="select_time">Heure</string>
+    <string name="validate_appointment">Valider</string>
+    <string name="appointment_title">Nom de l\'évènement</string>
 </resources>

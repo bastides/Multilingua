@@ -1,38 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_appointment_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_appointment_title"
+            android:hint="@string/appointment_title"
+            android:layout_gravity="center_horizontal"
+            android:inputType="textCapSentences"
+            android:layout_below="@+id/btn_time"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="14dp"
+            android:maxLines="1" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.50">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/in_time"
+            android:layout_alignBaseline="@+id/btn_time"
+            android:layout_alignBottom="@+id/btn_time"
+            android:layout_toRightOf="@+id/btn_time"
+            android:layout_toEndOf="@+id/btn_time" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_time"
+            android:id="@+id/btn_time"
+            android:layout_below="@+id/btn_date"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="9dp" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/in_date"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/btn_date"
+            android:layout_toEndOf="@+id/btn_date"
+            android:layout_marginTop="73dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_date"
+            android:id="@+id/btn_date"
+            android:layout_alignBaseline="@+id/in_date"
+            android:layout_alignBottom="@+id/in_date"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
 
     <Button
+        android:text="@string/validate_appointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/select_date"
-        android:id="@+id/btn_date" />
+        android:id="@+id/btn_validate"
+        android:layout_gravity="center_horizontal"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/select_time"
-        android:id="@+id/btn_time"
-        android:layout_below="@+id/btn_date"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/in_time"
-        android:layout_alignBaseline="@+id/btn_time"
-        android:layout_alignBottom="@+id/btn_time"
-        android:layout_toRightOf="@+id/btn_time"
-        android:layout_toEndOf="@+id/btn_time" />
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/in_date"
-        android:layout_alignBaseline="@+id/btn_date"
-        android:layout_alignBottom="@+id/btn_date"
-        android:layout_toRightOf="@+id/btn_date" />
-
-</RelativeLayout>
+</LinearLayout>

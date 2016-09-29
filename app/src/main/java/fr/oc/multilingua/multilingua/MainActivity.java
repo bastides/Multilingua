@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import fr.oc.multilingua.multilingua.preferences.UserPreferencesManager;
+import fr.oc.multilingua.multilingua.sqlite.Appointment;
 import fr.oc.multilingua.multilingua.sqlite.Course;
 import fr.oc.multilingua.multilingua.sqlite.DBHelper;
 import fr.oc.multilingua.multilingua.sqlite.Quiz;
@@ -79,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
         DBHelper db = new DBHelper(this);
 
-        //db.insertUser("Bastide", "Sébastien", "0000", "bastide.sebastien@gmail.com");
+        /*db.insertUser("Bastide", "Sébastien", "0000", "bastide.sebastien@gmail.com");
 
-        /*db.insertCourse(
+        db.insertCourse(
                 "Hello !",
                 "Vous allez apprendre à dire bonjour et au revoir à quelqu'un, à déterminer quelle expression utiliser.",
                 "Cours débutant",
@@ -122,9 +123,9 @@ public class MainActivity extends AppCompatActivity {
                 "Cours intermédiaire",
                 "Les adjectifs décrivent des personnes, des choses et des lieux. Les adverbes, eux, décrivent des verbes et des actions. La plupart des adverbes se forment en ajoutant -ly à l'adjectif : loud - loudly. Lorsqu'un adjectif se finit par un -l, on ajoute simplement -ly pour former l'adverbe : beautiful - beautifully. Lorsqu'un adjectif se finit par -y, on remplace ce y par -ly que l'on précède d'un i : crazy - crazily. Lorsqu'un adjectif se finit par -le, le dernier -e devient -y et on n'ajoute pas de terminaison en plus : terrible - terribly. Lorsqu'un adjectif finit en -ic, on forme l'adverbe en ajoutant -ally : electronic - electronically.",
                 0
-        );*/
+        );
 
-        /*db.insertQuiz(
+        db.insertQuiz(
                 "Pour dire bonjour à quelqun après 18h on utilise \"Good morning\".",
                 0,
                 1
@@ -211,6 +212,11 @@ public class MainActivity extends AppCompatActivity {
 
         /*for (Quiz q : db.selectQuizByCourseId(1)) {
             Log.v("Liste des quiz", String.valueOf(q.get_question()));
+        }*/
+
+        /*for (Appointment a : db.selectAllAppointment()) {
+            Log.v("Liste des RDV", String.valueOf(a.get_title()));
+            Log.v("Liste des RDV", String.valueOf(a.get_date()));
         }*/
     }
 
