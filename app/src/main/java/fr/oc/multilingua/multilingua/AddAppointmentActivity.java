@@ -2,13 +2,17 @@ package fr.oc.multilingua.multilingua;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.icu.util.GregorianCalendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -33,6 +37,16 @@ public class AddAppointmentActivity extends AppCompatActivity {
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int dbYear, dbMonth, dbDay, dbHour, dbMinute;
     private SimpleDateFormat sdf;
+
+    private final IntentFilter intentFilter = new IntentFilter("close");
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if ("close".equals(intent.getAction())) {
+                finish();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +128,15 @@ public class AddAppointmentActivity extends AppCompatActivity {
                 }
             }
         });
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("close"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 
     /**

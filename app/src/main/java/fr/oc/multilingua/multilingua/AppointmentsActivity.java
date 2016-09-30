@@ -1,7 +1,11 @@
 package fr.oc.multilingua.multilingua;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +18,16 @@ import fr.oc.multilingua.multilingua.sqlite.Appointment;
 import fr.oc.multilingua.multilingua.sqlite.DBHelper;
 
 public class AppointmentsActivity extends AppCompatActivity {
+
+    private final IntentFilter intentFilter = new IntentFilter("close");
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if ("close".equals(intent.getAction())) {
+                finish();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +51,14 @@ public class AppointmentsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("close"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 }

@@ -1,16 +1,23 @@
 package fr.oc.multilingua.multilingua;
 
 import android.content.Intent;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import java.security.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import fr.oc.multilingua.multilingua.sqlite.Appointment;
+import fr.oc.multilingua.multilingua.sqlite.DBHelper;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.AppointmentViewHolder> {
 
@@ -41,12 +48,24 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
         private final TextView _title;
         private final TextView _date;
+        private final Button _deleteButton;
         private Appointment _currentAppointment;
 
         public AppointmentViewHolder(View itemView) {
             super(itemView);
             _title = ((TextView) itemView.findViewById(R.id.appointment_title));
             _date = ((TextView) itemView.findViewById(R.id.appointment_date));
+            _deleteButton = ((Button) itemView.findViewById(R.id.delete_appointment));
+
+            _deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DBHelper db = new DBHelper(view.getContext());
+                    db.deleteAppointment(_currentAppointment.get_id());
+                    Intent intent = new Intent(view.getContext(), AppointmentsActivity.class);
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
 
         public void setAppointment(Appointment appointment) {
