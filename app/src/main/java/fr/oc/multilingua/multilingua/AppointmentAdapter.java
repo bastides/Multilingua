@@ -2,7 +2,6 @@ package fr.oc.multilingua.multilingua;
 
 import android.content.Intent;
 import android.icu.text.DateFormat;
-import android.icu.text.SimpleDateFormat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.security.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -71,7 +72,15 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         public void setAppointment(Appointment appointment) {
             this._currentAppointment = appointment;
             _title.setText(this._currentAppointment.get_title());
-            _date.setText(this._currentAppointment.get_date());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            try {
+                Date date = sdf.parse(this._currentAppointment.get_date());
+                SimpleDateFormat sdf2 = new SimpleDateFormat("dd MMM yyyy à HH:mm");
+                _date.setText(sdf2.format(date));
+                // date.getTime(); Retourne le timestamp en Mills
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -6,9 +6,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
-import android.icu.util.GregorianCalendar;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -112,17 +113,16 @@ public class AddAppointmentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (submitForm()) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        Calendar calendar = new GregorianCalendar(dbYear, dbMonth, dbDay, dbHour, dbMinute);
-                        sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-                        String date = sdf.format(calendar.getTime());
+                    Calendar calendar = new GregorianCalendar(dbYear, dbMonth, dbDay, dbHour, dbMinute);
+                    sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+                    String date = sdf.format(calendar.getTime());
 
-                        DBHelper db = new DBHelper(AddAppointmentActivity.this);
-                        db.insertAppointment(
-                                inputTitle.getText().toString(),
-                                date
-                        );
-                    }
+                    DBHelper db = new DBHelper(AddAppointmentActivity.this);
+                    db.insertAppointment(
+                            inputTitle.getText().toString(),
+                            date
+                    );
+
                     Intent intent = new Intent(AddAppointmentActivity.this, AppointmentsActivity.class);
                     startActivity(intent);
                 }
