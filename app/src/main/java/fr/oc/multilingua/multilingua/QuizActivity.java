@@ -164,18 +164,21 @@ public class QuizActivity extends AppCompatActivity
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("close"));
 
-        int idCourses[];
+        int idCourses[] = new int[0];
+        List<Quiz> _quizList = null;
 
         DBHelper db = new DBHelper(this);
         List<Course> completeCourses = db.selectCompleteCourses();
-        idCourses = new int[completeCourses.size()];
-        for (int i = 0; i < completeCourses.size(); i++) {
-            int id = completeCourses.get(i).get_id();
-            idCourses[i] = id;
+        if (completeCourses != null) {
+            idCourses = new int[completeCourses.size()];
+            for (int i = 0; i < completeCourses.size(); i++) {
+                int id = completeCourses.get(i).get_id();
+                idCourses[i] = id;
+            }
+            SecureRandom random = new SecureRandom();
+            int randomQuiz = random.nextInt(idCourses.length);
+            _quizList = db.selectQuizByCourseId(idCourses[randomQuiz]);
         }
-        SecureRandom random = new SecureRandom();
-        int randomQuiz = random.nextInt(idCourses.length);
-        List<Quiz> _quizList = db.selectQuizByCourseId(idCourses[randomQuiz]);
 
         if (_quizList != null) {
             _viewPager = (ViewPager) findViewById(R.id.quir_pager);
