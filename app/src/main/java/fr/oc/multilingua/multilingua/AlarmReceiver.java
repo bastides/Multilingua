@@ -14,8 +14,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("My notification");
-        builder.setContentText("Hello World!");
+        builder.setContentTitle("Alerte formation");
+        builder.setContentText("Vous avez une session de formation dans 1 heure");
 
         builder.setVibrate(new long[] { 1000, 1000 });
 

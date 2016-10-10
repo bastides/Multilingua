@@ -42,6 +42,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
         private final TextView _title;
         private final TextView _description;
+        private final TextView _category;
         private Course _currentCourse;
 
         private long _preferenceLastCourse;
@@ -52,6 +53,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             super(itemView);
             _title = ((TextView) itemView.findViewById(R.id.course_title));
             _description = ((TextView) itemView.findViewById(R.id.course_description));
+            _category = ((TextView) itemView.findViewById(R.id.course_category));
             _preferenceLastCourse = UserPreferencesManager.getInstance(itemView.getContext()).loadLastCourse();
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +63,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                         Intent intent = new Intent(view.getContext(), CourseActivity.class);
                         intent.putExtra(CourseActivity.COURSE_TITLE, _currentCourse.get_title());
                         intent.putExtra(CourseActivity.COURSE_DESCRIPTION, _currentCourse.get_description());
+                        intent.putExtra(CourseActivity.COURSE_CATEGORY, _currentCourse.get_category());
                         intent.putExtra(CourseActivity.COURSE_COURSE, _currentCourse.get_course());
                         view.getContext().startActivity(intent);
                     } else {
@@ -79,6 +82,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             this._currentCourse = course;
             _title.setText(this._currentCourse.get_title());
             _description.setText(this._currentCourse.get_description());
+            _category.setText(this._currentCourse.get_category());
         }
     }
 }

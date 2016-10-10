@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,7 @@ public class CourseActivity extends AppCompatActivity {
 
     public static final String COURSE_TITLE = "title";
     public static final String COURSE_DESCRIPTION = "description";
+    public static final String COURSE_CATEGORY = "category";
     public static final String COURSE_COURSE = "course";
 
     private TextToSpeech _tts;
@@ -39,9 +41,10 @@ public class CourseActivity extends AppCompatActivity {
 
         final String title = getIntent().getStringExtra(COURSE_TITLE);
         String description = getIntent().getStringExtra(COURSE_DESCRIPTION);
+        final String category = getIntent().getStringExtra(COURSE_CATEGORY);
         final String course = getIntent().getStringExtra(COURSE_COURSE);
 
-        setTitle(title);
+        setTitle(category);
 
         TextView courseTitle = (TextView) findViewById(R.id.course_title);
         TextView courseDescription = (TextView) findViewById(R.id.course_description);
@@ -65,8 +68,8 @@ public class CourseActivity extends AppCompatActivity {
             }
         });
 
-        Button btnSpeaker = (Button) findViewById(R.id.speaker);
-        btnSpeaker.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton speaker = (FloatingActionButton) findViewById(R.id.speaker);
+        speaker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 speak(course);

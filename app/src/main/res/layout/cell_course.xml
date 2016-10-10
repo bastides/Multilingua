@@ -7,19 +7,31 @@
     android:layout_margin="15dp">
 
     <TextView
+        android:id="@+id/course_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:lines="1"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:text="@string/category"
+        android:textStyle="normal|bold|italic"
+        android:textColor="@color/colorAccent">
+    </TextView>
+
+    <TextView
         android:id="@+id/course_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:lines="2"
+        android:lines="1"
         android:ellipsize="end"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="Titre" >
+        tools:text="Titre">
     </TextView>
 
     <TextView
         android:id="@+id/course_description"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:lines="1"

@@ -55,11 +55,11 @@
     </Space>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:text="@string/btn_validate"
         android:id="@+id/btn_validate"
         android:layout_gravity="center"
-        android:textSize="18sp" />
+        style="@style/buttonStyle" />
 
 </LinearLayout>

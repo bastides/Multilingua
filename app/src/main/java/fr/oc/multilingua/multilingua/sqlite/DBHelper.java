@@ -394,7 +394,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(
                 Appointment.AppointmentEntries.TABLE_NAME,
                 projection,
-                null, null, null, null, null);
+                null, null, null, null, "date");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="10dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -30,10 +35,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
+                android:text="Small Text"
                 android:id="@+id/course_description"
                 android:layout_gravity="center"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -47,29 +52,30 @@
                 android:text="Small Text"
                 android:id="@+id/course_course"
                 android:layout_gravity="center"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="30dp">
+                android:layout_height="20dp">
             </Space>
 
-            <Button
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/speaker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/speaker"
-                android:id="@+id/speaker"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
+
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_finish"
                 android:id="@+id/btn_finish"
-                android:layout_gravity="center_horizontal" />
-
+                android:layout_gravity="center_horizontal"
+                style="@style/buttonStyle" />
         </LinearLayout>
-
     </ScrollView>
 
 </LinearLayout>

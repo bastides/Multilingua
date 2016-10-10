@@ -3,6 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
     android:weightSum="1">
 
     <android.support.design.widget.TextInputLayout
@@ -30,43 +34,49 @@
         android:layout_height="0dp"
         android:layout_weight="0.50">
 
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/in_time"
-            android:layout_alignBaseline="@+id/btn_time"
-            android:layout_alignBottom="@+id/btn_time"
-            android:layout_toRightOf="@+id/btn_time"
-            android:layout_toEndOf="@+id/btn_time" />
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_time"
             android:id="@+id/btn_time"
+            style="@style/buttonStyle"
             android:layout_below="@+id/btn_date"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="9dp" />
-
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/in_date"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/btn_date"
-            android:layout_toEndOf="@+id/btn_date"
-            android:layout_marginTop="73dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_date"
             android:id="@+id/btn_date"
+            style="@style/buttonStyle"
             android:layout_alignBaseline="@+id/in_date"
             android:layout_alignBottom="@+id/in_date"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/in_date"
+            android:textSize="20sp"
+            android:layout_marginTop="73dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="26dp"
+            android:layout_marginEnd="26dp" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/in_time"
+            android:textSize="20sp"
+            android:layout_alignBaseline="@+id/btn_time"
+            android:layout_alignBottom="@+id/btn_time"
+            android:layout_alignLeft="@+id/in_date"
+            android:layout_alignStart="@+id/in_date" />
 
     </RelativeLayout>
 
@@ -75,7 +85,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_validate"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        style="@style/buttonStyle"/>
 
 
 </LinearLayout>
