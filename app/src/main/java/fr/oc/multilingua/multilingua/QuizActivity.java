@@ -117,7 +117,7 @@ public class QuizActivity extends AppCompatActivity
                 public void onClick(final View view) {
                     AlertDialog.Builder error = new AlertDialog.Builder(QuizActivity.this);
                     error.setTitle("Bravo");
-                    error.setMessage("Vous avez terminé votre quiz du jour. Revenez demain tester vos connaissances !");
+                    error.setMessage("Quiz terminé !");
                     error.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
