@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        // DBHelper db = new DBHelper(this);
+        //DBHelper db = new DBHelper(this);
+
         /*db.insertUser("Bastide", "Sébastien", "0000", "bastide.sebastien@gmail.com");
 
         db.insertCourse(
