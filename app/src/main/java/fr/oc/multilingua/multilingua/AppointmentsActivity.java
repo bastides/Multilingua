@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -92,7 +93,7 @@ public class AppointmentsActivity extends AppCompatActivity {
         AppointmentAdapter adapter = new AppointmentAdapter(newAppointmentsList);
         recyclerView.setAdapter(adapter);
 
-        Button addAppointment = (Button) findViewById(R.id.add_appointment);
+        FloatingActionButton addAppointment = (FloatingActionButton) findViewById(R.id.add_appointment);
         addAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

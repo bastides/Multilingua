@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -13,11 +14,12 @@
         android:layout_height="20dp">
     </Space>
 
-    <Button
-        android:text="@string/add_appointment"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_appointment"
-        android:layout_gravity="center_horizontal"
-        style="@style/buttonStyle" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
 </LinearLayout>

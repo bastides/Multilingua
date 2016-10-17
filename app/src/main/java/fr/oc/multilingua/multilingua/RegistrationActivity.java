@@ -28,6 +28,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private final IntentFilter intentFilter = new IntentFilter("close");
 
+    // FERME L'ACTIVITE SI ON FAIT PRECEDENT LORSQUE L'ON SE TROUVE SUR LA PAGE DES COURS
     private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

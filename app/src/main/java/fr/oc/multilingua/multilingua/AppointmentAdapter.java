@@ -73,7 +73,6 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                 Date date = sdf.parse(this._currentAppointment.get_date());
                 SimpleDateFormat sdf2 = new SimpleDateFormat("dd MMM yyyy à HH:mm");
                 _date.setText(sdf2.format(date));
-                // date.getTime(); Retourne le timestamp en Mills
             } catch (ParseException e) {
                 e.printStackTrace();
             }
